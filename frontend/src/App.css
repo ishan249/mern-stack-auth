@@ -1,0 +1,12 @@
+.navbar-links {
+  margin: 20px;
+}
+.inputs{
+  margin: 10px;
+  height: 34px;
+  border-radius:6px;
+  border: 2px solid #7a7a7a;
+}
+.inputs:focus{
+  outline:none;
+}
