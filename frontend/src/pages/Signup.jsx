@@ -1,39 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import jwtDecode from "jwt-decode"
 import { useNavigate } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
 function Signup() {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [googleUser, setGoogleUser] = useState({});
-  // const handleCallbackResponse= async (response) =>{
-  //   console.log("credentials: " + response.credential);
-  //   var userObj = jwtDecode(response.credential);
-  //   console.log(userObj);
-  //   setGoogleUser(userObj);
-  //   document.getElementById("google-signin").hidden = true;
+  const {handleSignUp} = useContext(AuthContext)
+  const {handleGoogleLogin} = useContext(AuthContext)
 
-  //   try {
-  //     console.log(userObj.name, userObj.email, userObj.sub);
-      
-  //     let response = await fetch("http://localhost:8000/signup/google", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({name:userObj.name, email:userObj.email, googleId:userObj.sub}),
-  //     });
-
-  //     let responseData = await response.json();
-  //     console.log(responseData);
-  //     navigate("/dashboard");
-  //     alert("successfully signed in with google");
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
   useEffect(() => {
     const initializeGoogleSignIn = async () => {
       google.accounts.id.initialize({
@@ -47,24 +25,7 @@ function Signup() {
 
           try {
             console.log(userObj.name, userObj.email, userObj.sub);
-
-            let response = await fetch("http://localhost:8000/signup/google", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                name: userObj.name,
-                email: userObj.email,
-                googleId: userObj.sub,
-              }),
-            });
-
-            let responseData = await response.json();
-            localStorage.setItem("token", responseData.token);
-            console.log(responseData);
-            navigate("/dashboard");
-            alert("successfully signed up with google");
+            await handleGoogleLogin(userObj.name, userObj.email, userObj.sub);
           } catch (error) {
             console.log(error);
           }
@@ -85,24 +46,7 @@ function Signup() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-
-    try {
-      console.log(name, email, password);
-      let response = await fetch("http://localhost:8000/signup/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name, email, password }),
-      });
-
-      let responseData = await response.json();
-      console.log(responseData);
-      navigate("/login");
-      alert("successfully signed in");
-    } catch (error) {
-      console.log(error);
-    }
+    await handleSignUp(name, email, password);
   };
 
   return (

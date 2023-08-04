@@ -20,11 +20,11 @@ const signupRoute = async (req, res) => {
 
       const user = new User({ name, email, password: hashedPassword });
       await user.save();
-      return res.json(user);
+      return res.status(200).json(user);
     }
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
 
@@ -103,7 +103,7 @@ const signupWithGoogleRoute = async (req, res) => {
     }
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
 
