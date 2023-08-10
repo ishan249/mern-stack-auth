@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import jwtDecode from "jwt-decode"
+import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import Navbar from "../components/Navbar";
@@ -10,11 +10,8 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [googleUser, setGoogleUser] = useState({});
-  const {handleSignUp} = useContext(AuthContext)
-  const {handleGoogleLogin} = useContext(AuthContext)
-
-  
-
+  const { handleSignUp } = useContext(AuthContext);
+  const { handleGoogleLogin } = useContext(AuthContext);
 
   useEffect(() => {
     const initializeGoogleSignIn = async () => {
@@ -55,7 +52,7 @@ function Signup() {
 
   return (
     <div>
-        <Navbar />
+      <Navbar />
 
       <form onSubmit={handleRegister}>
         <input
@@ -88,9 +85,6 @@ function Signup() {
         </button>
       </form>
       <div id="google-signin"></div>
-
-
-    
     </div>
   );
 }

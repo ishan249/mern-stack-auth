@@ -1,13 +1,54 @@
-.navbar-links {
+.navbar-box {
+  font-family: "Albert Sans";
+  font-size: medium;
+  font-weight: bold;
   margin: 20px;
 }
-.inputs{
-  margin: 10px;
-  height: 34px;
-  border-radius:6px;
-  border: 2px solid #7a7a7a;
+
+.navbar-links {
+  margin: 20px;
+  text-decoration: none;
+  color: #000;
+  padding-bottom: 8px;
 }
-.inputs:focus{
-  outline:none;
+.navbar-main {
+  box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,
+    rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}
+.active {
+  text-decoration: underline;
+  text-decoration-color: #000;
 }
 
+/* Assuming you're using Tailwind CSS classes */
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  flex: 1;
+}
+
+.footer {
+  color: #000;
+  text-align: center;
+  padding: 1rem;
+}
+
+.tp {
+  color: #0284c7;
+}
+
+.inputs {
+  margin: 10px;
+  height: 34px;
+  border-radius: 6px;
+  border: 2px solid #7a7a7a;
+}
+.inputs:focus {
+  outline: none;
+}
