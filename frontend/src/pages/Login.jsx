@@ -52,6 +52,7 @@ function Login() {
   return (
     <div>
       <div>
+        {/* using react hot toast */}
         <Toaster />
       </div>
       <Navbar />
