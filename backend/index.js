@@ -18,7 +18,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/", require("./routes/authRoutes"));
-const MONGOOSE_URL = "mongodb://localhost:27017/mern-auth";
+const MONGOOSE_URL = process.env.MONGOOSE_URL;
 
 mongoose
   .connect(MONGOOSE_URL, { useNewUrlParser: true })
