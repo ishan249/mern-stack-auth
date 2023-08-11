@@ -8,13 +8,13 @@ function Home() {
       <Navbar />
       <div className="content font-AlbertSans mt-16 flex justify-center">
         <div className="p-4 font-medium text-xl">
-          Hello User, Welcome to MERN stack authentication system with Google
-          OAuth login. Find documentation and Code{" "}
+          Hello User, This is prebuilt <span className="font-semibold text-[#1a1919]">MERN</span> stack authentication system with <span className="font-semibold text-[#1a1919]"> Google
+          OAuth login</span>. Find documentation and Code{" "}
           <Link
             target="_blank"
             rel="noopener noreferrer"
             className="text-[#0284c7] underline"
-            to="https://github.com/ishan249/mern-stack-auth"
+            to="https://github.com/ishan249/mern-stack-auth-with-google-signin"
           >
             here
           </Link>
