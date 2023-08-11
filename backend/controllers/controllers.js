@@ -2,17 +2,15 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const homeRoute = (req, res) => {
-  res.json("refresh");
-};
 
 const signupRoute = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
     const exist = await User.findOne({ email });
+    console.log(exist)
     if (exist) {
-      return res.json({ message: "Email already taken!!" });
+      return res.status(400).json({ error: "Email already taken!!" });
     } else {
       // Hash the password before saving
       const saltRounds = 4;
@@ -23,7 +21,6 @@ const signupRoute = async (req, res) => {
       return res.status(200).json(user);
     }
   } catch (err) {
-    console.log(err);
     return res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -43,8 +40,7 @@ const loginRoute = async (req, res) => {
           {},
           (err, token) => {
             if (err) throw err;
-            console.log(user, token);
-            res.json({ user, token });
+            res.status(200).json({ user, token });
           }
         );
       } else {
@@ -54,7 +50,6 @@ const loginRoute = async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
   } catch (err) {
-    console.log(err);
     return res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -82,8 +77,7 @@ const signupWithGoogleRoute = async (req, res) => {
         {},
         (err, token) => {
           if (err) throw err;
-          console.log(user, token);
-          res.json({ user, token });
+          res.status(200).json({ user, token });
         }
       );
     } else {
@@ -96,19 +90,16 @@ const signupWithGoogleRoute = async (req, res) => {
         {},
         (err, token) => {
           if (err) throw err;
-          console.log(newUser, token);
-          res.json({ user: newUser, token });
+          res.status(200).json({ user: newUser, token });
         }
       );
     }
   } catch (err) {
-    console.log(err);
     return res.status(500).json({ error: "Internal server error" });
   }
 };
 
 module.exports = {
-  homeRoute,
   signupRoute,
   loginRoute,
   getProfile,

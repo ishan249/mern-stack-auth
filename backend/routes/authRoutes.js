@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const cors = require("cors");
 const {
-  homeRoute,
   signupRoute,
   loginRoute,
   getProfile,
@@ -16,7 +15,6 @@ router.use(
   })
 );
 
-router.get("/", homeRoute);
 router.post("/signup", signupRoute);
 router.post("/signup/google", signupWithGoogleRoute);
 router.post("/login", loginRoute);

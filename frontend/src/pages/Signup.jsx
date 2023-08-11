@@ -11,7 +11,6 @@ function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [googleUser, setGoogleUser] = useState({});
   const { handleSignUp } = useContext(AuthContext);
   const { handleGoogleLogin } = useContext(AuthContext);
 
@@ -20,17 +19,24 @@ function Signup() {
       google.accounts.id.initialize({
         client_id: import.meta.env.VITE_GOOGLE_CLIENT_KEY,
         callback: async (response) => {
-          console.log("credentials: " + response.credential);
           var userObj = jwtDecode(response.credential);
-          console.log(userObj);
-          setGoogleUser(userObj);
-          document.getElementById("google-signin").hidden = true;
 
           try {
-            console.log(userObj.name, userObj.email, userObj.sub);
-            await handleGoogleLogin(userObj.name, userObj.email, userObj.sub);
+            const result = await handleGoogleLogin(
+              userObj.name,
+              userObj.email,
+              userObj.sub
+            );
+            if (result.success) {
+              toast.success("Logged in with google successfully!");
+              setTimeout(() => {
+                navigate("/dashboard");
+              }, 2000);
+            } else {
+              toast.error(result.error || "Error occurred!! Try again");
+            }
           } catch (error) {
-            console.log(error);
+            toast.error(error);
           }
         },
       });
@@ -49,51 +55,63 @@ function Signup() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    await handleSignUp(name, email, password);
+    const signUpResult = await handleSignUp(name, email, password);
+
+    if (signUpResult.success) {
+      toast.success("Signed up successfully!");
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 2000);
+    } else {
+      toast.error(signUpResult.error || "Error occurred!! Try again");
+    }
   };
 
   return (
     <div>
       <div>
-        <Toaster />
+        <Toaster position="top-right" />
       </div>
       <Navbar />
-      <div className="flex justify-center font-AlbertSans">
+      <div className="flex justify-center mt-16 font-AlbertSans">
         <div className="form-box">
-        <form onSubmit={handleRegister}>
-          <input
-            className="inputs"
-            type="text"
-            placeholder="name"
-            onChange={(event) => setName(event.target.value)}
-            value={name}
-          />
-          <br />
-          <input
-            className="inputs"
-            type="email"
-            placeholder="email"
-            onChange={(event) => setEmail(event.target.value)}
-            value={email}
-          />
-          <br />
-          <input
-            className="inputs"
-            type="password"
-            placeholder="password"
-            onChange={(event) => setPassword(event.target.value)}
-            value={password}
-          />
+          <form onSubmit={handleRegister}>
+            <input
+              className="inputs"
+              type="text"
+              placeholder="Name"
+              onChange={(event) => setName(event.target.value)}
+              value={name}
+              required
+            />
+            <br />
+            <input
+              className="inputs"
+              type="email"
+              placeholder="Email"
+              onChange={(event) => setEmail(event.target.value)}
+              value={email}
+              required
+            />
+            <br />
+            <input
+              className="inputs"
+              type="password"
+              placeholder="Password"
+              onChange={(event) => setPassword(event.target.value)}
+              value={password}
+              required
+            />
 
-          <br />
-          <div className="mt-4 flex justify-center submit-form-btn">
-            <button type="submit" className="font-semibold w-[100%]">
-              Sign Up
-            </button>
-          </div>
-        </form>
-        <div className="text-center mb-2">or</div>
-        <div className="w-[90%]" id="google-signin"></div>
+            <br />
+            <div className="mt-4 flex justify-center submit-form-btn">
+              <button type="submit" className="font-semibold w-[100%]">
+                Sign Up
+              </button>
+            </div>
+          </form>
+          <div className="text-center mb-2">or</div>
+          <div className="flex justify-center" id="google-signin"></div>
         </div>
       </div>
     </div>

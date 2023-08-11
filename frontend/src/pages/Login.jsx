@@ -16,17 +16,24 @@ function Login() {
       google.accounts.id.initialize({
         client_id: import.meta.env.VITE_GOOGLE_CLIENT_KEY,
         callback: async (response) => {
-          console.log("credentials: " + response.credential);
           var userObj = jwtDecode(response.credential);
-          console.log(userObj);
-          // setGoogleUser(userObj);
-          document.getElementById("google-signin").hidden = true;
 
           try {
-            console.log(userObj.name, userObj.email, userObj.sub);
-            await handleGoogleLogin(userObj.name, userObj.email, userObj.sub);
+            const result = await handleGoogleLogin(
+              userObj.name,
+              userObj.email,
+              userObj.sub
+            );
+            if (result.success) {
+              toast.success("Logged in with google successfully!");
+              setTimeout(() => {
+                navigate("/dashboard");
+              }, 2000);
+            } else {
+              toast.error(result.error || "Error occurred!! Try again");
+            }
           } catch (error) {
-            console.log(error);
+            toast.error(error);
           }
         },
       });
@@ -45,19 +52,25 @@ function Login() {
 
   const handleLoginUser = async (e) => {
     e.preventDefault();
-
-    await handleLogin(email, password);
+    const loginResult = await handleLogin(email, password);
+    if (loginResult.success) {
+      toast.success("Logged in successfully!");
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 2000);
+    } else {
+      toast.error(loginResult.error || "Error occurred!! Try again");
+    }
   };
 
   return (
     <div>
       <div>
-        {/* using react hot toast */}
-        <Toaster />
+        <Toaster position="top-right" />
       </div>
       <Navbar />
 
-      <div className="flex justify-center font-AlbertSans">
+      <div className="flex justify-center mt-16 font-AlbertSans">
         <div className="form-box">
           <form onSubmit={handleLoginUser}>
             <input
@@ -66,6 +79,7 @@ function Login() {
               className="inputs"
               type="email"
               placeholder="Email"
+              required
             />
             <br />
             <input
@@ -74,6 +88,7 @@ function Login() {
               placeholder="Password"
               onChange={(event) => setPassword(event.target.value)}
               value={password}
+              required
             />
             <br />
             <div className="mt-4 flex justify-center submit-form-btn">
@@ -83,7 +98,7 @@ function Login() {
             </div>
           </form>
           <div className="text-center mb-2">or</div>
-          <div className="w-[90%]" id="google-signin"></div>
+          <div className="flex justify-center" id="google-signin"></div>
         </div>
       </div>
     </div>
