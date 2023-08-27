@@ -1,0 +1,5 @@
+{
+    "/api": {
+        "target":"https://mern-stack-auth-with-google-signin-api.vercel.app/",
+    }
+}
