@@ -2,6 +2,9 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+const homeroute = (req,res)=>{
+  res.json({message:"I am working"});
+}
 
 const signupRoute = async (req, res) => {
   try {
@@ -104,4 +107,5 @@ module.exports = {
   loginRoute,
   getProfile,
   signupWithGoogleRoute,
+  homeroute
 };

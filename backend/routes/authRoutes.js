@@ -6,6 +6,7 @@ const {
   loginRoute,
   getProfile,
   signupWithGoogleRoute,
+  homeroute
 } = require("../controllers/controllers");
 
 router.use(
@@ -14,6 +15,8 @@ router.use(
     origin: "http://localhost:5173",
   })
 );
+
+router.get("/", homeroute)
 
 router.post("/signup", signupRoute);
 router.post("/signup/google", signupWithGoogleRoute);
