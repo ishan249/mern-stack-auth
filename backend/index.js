@@ -17,7 +17,7 @@ app.use(
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use("/", require("./routes/authRoutes"));
+app.use("/api", require("./routes/authRoutes"));
 const MONGOOSE_URL = process.env.MONGOOSE_URL;
 
 mongoose
