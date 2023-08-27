@@ -20,13 +20,13 @@ export const AuthProvider = ({ children }) => {
   const handleLogin = async (email, password) => {
     let data = { email, password };
 
-    let response = await fetch("http://localhost:8000/login/", {
+    let response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/login/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-      credentials: "include",
+      // credentials: "include",
     });
 
     let responseData = await response.json();
@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
 
   const handleSignUp = async (name, email, password) => {
     try {
-      const response = await fetch("http://localhost:8000/signup/", {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/signup/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }) => {
       const responseData = await response.json();
       if (response.status === 200) {
         const loginData = { email, password };
-        const loginResponse = await fetch("http://localhost:8000/login/", {
+        const loginResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}/login/`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -81,7 +81,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const handleGoogleLogin = async (name, email, googleId) => {
-    let response = await fetch("http://localhost:8000/signup/google", {
+    let response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/signup/google`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
