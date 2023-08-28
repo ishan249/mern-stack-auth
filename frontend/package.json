@@ -3,8 +3,6 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "proxy":"https://mern-stack-auth-with-google-signin-api.vercel.app/",
-  
   "scripts": {
     "dev": "vite --port 5173",
     "build": "vite build",
