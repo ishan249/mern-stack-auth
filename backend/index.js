@@ -9,7 +9,7 @@ const PORT = 8000;
 
 app.use(
   cors({
-    origin: ["http://localhost:5173","https://mern-stack-auth-with-google-signin.vercel.app"],
+    origin: ["http://localhost:5173","https://mern-stack-auth-with-google-signin.vercel.app","https://mern-auth-api-5jhl.onrender.com"],
     credentials: true,
   })
 );
