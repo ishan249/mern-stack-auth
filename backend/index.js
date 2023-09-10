@@ -10,7 +10,6 @@ const PORT = 8000;
 app.use(
   cors({
     origin: ["http://localhost:5173","https://mern-auth-app-54ai.onrender.com"],
-    credentials: true,
   })
 );
 
