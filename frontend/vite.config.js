@@ -1,8 +1,16 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+// vite.config.js
 
-// https://vitejs.dev/config/
+import { defineConfig } from 'vite';
+
 export default defineConfig({
+  // Other Vite configurations...
 
-  plugins: [react()],
-})
+  server: {
+    proxy: {
+      '/api/signup': 'http://localhost:8000',
+      '/api/signup/google': 'http://localhost:8000',
+      '/api/login': 'http://localhost:8000',
+      '/api/profile': 'http://localhost:8000',
+    },
+  },
+});
