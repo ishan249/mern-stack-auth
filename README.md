@@ -32,7 +32,7 @@ MONGOOSE_URL = yourdatabaseurl
 ```
 To run server
 ```bash
-nodemon index.js
+supervisor index.js
 ```
 After following these steps , your project is ready. You are good to go.
  
